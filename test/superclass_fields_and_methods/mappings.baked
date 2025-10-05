@@ -1,0 +1,6 @@
+c a TreasureChest
+c b Chest
+c c Container
+f x locked Z
+m y unlock ()V
+c d Program

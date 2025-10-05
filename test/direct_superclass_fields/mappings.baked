@@ -1,0 +1,4 @@
+c a Chest
+m m getName ()Ljava/lang/String;
+c b Container
+f x name Ljava/lang/String;
