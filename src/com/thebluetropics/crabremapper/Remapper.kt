@@ -46,6 +46,41 @@ internal class Remapper(private val hChz: Map<String, Hc>, private val mChz: Map
 			return if (mf?.mappedName != null) mf.mappedName else name
 		}
 
+		val interfacesLookup = mutableListOf<String>()
+
+		val stack = mutableListOf<Hc>()
+		stack.addAll(hc.inf.reversed().map { name -> this.hChz[name] as Hc })
+
+		while (!stack.isEmpty()) {
+			val interfaceHc = stack.last()
+
+			if (!interfacesLookup.contains(interfaceHc.name)) {
+				interfacesLookup.add(interfaceHc.name)
+			}
+
+			stack.removeLast()
+
+			if (interfaceHc.inf.isNotEmpty()) {
+				stack.addAll(interfaceHc.inf.reversed().map { name -> this.hChz[name] as Hc})
+			}
+		}
+
+		for (iSupHc in interfacesLookup.map { name -> this.hChz[name] as Hc }) {
+			val iSupHf = iSupHc.getField(name, desc)
+
+			if (iSupHf != null) {
+				val iSupMc = this.mChz[iSupHc.name]
+
+				if (iSupMc != null) {
+					val iSupMf = iSupMc.getField(name, desc)
+
+					if (iSupMf?.mappedName != null) {
+						return iSupMf.mappedName
+					}
+				}
+			}
+		}
+
 		val superclasses = getSuperClasses(cName)
 
 		for (hcSup in superclasses) {

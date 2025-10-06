@@ -1,0 +1,4 @@
+c a com/example/Chest
+m y getContainerName ()Ljava/lang/String;
+c b com/example/Container
+f x name Ljava/lang/String;

@@ -1,0 +1,5 @@
+c a TreasureChest
+m y getContainerName ()Ljava/lang/String;
+c b Chest
+c c Container
+f x name Ljava/lang/String;
