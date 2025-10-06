@@ -11,13 +11,6 @@ internal class Remapper(private val hChz: Map<String, Hc>, private val mChz: Map
 		return chain.drop(1)
 	}
 
-	private fun getSuperInterfaces(cName: String): List<Hc> {
-		val seq = mutableListOf<Hc>()
-		val interfaces = (this.hChz[cName] as Hc).inf.map { name -> this.hChz[name] as Hc }
-
-		return emptyList()
-	}
-
 	override fun map(name: String): String {
 		val mc = this.mChz[name]
 
